@@ -280,6 +280,83 @@ body {
   line-height: 1.5;
 }
 
+/* Blog Card - Windows 95 style with white background */
+.blog-card {
+  background: white; /* changed from silver to white */
+  border: 2px inset white; /* inset border like a window */
+  padding: 15px;
+  max-width: 500px;
+  margin: 20px 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  transition: all 0.1s ease-in-out;
+}
+
+.blog-card:hover {
+  border-color: #404040; /* dark border on hover */
+  transform: translateY(-2px); /* subtle lift effect */
+  box-shadow: 2px 2px 6px rgba(0,0,0,0.3);
+}
+
+.blog-card img {
+  width: 120px;
+  height: auto;
+  border: 2px solid black; /* matches profile image style */
+  flex-shrink: 0;
+}
+
+.blog-card-content {
+  flex: 1;
+}
+
+.blog-card h3 {
+  margin: 0 0 5px 0;
+  color: purple; /* match award title */
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.blog-card .award-meta-inline {
+  font-size: 13px;
+  color: #444;
+  font-style: italic;
+  margin-bottom: 6px;
+}
+
+.blog-card .award-role {
+  font-size: 14px;
+  font-weight: bold;
+  color: navy;
+  margin-bottom: 8px;
+}
+
+.blog-card .award-details {
+  margin: 0 0 10px 0;
+  padding-left: 15px;
+  color: #333;
+  list-style-type: disc;
+}
+
+.blog-card .blog-button {
+  display: inline-block;
+  padding: 4px 10px;
+  font-size: 12px;
+  border-radius: 12px;
+  background-color: navy;
+  color: white;
+  text-decoration: none;
+  border: 2px outset white; /* mimic Windows 95 button */
+  transition: all 0.1s;
+}
+
+.blog-card .blog-button:hover {
+  background-color: #1a1a99;
+  border: 2px inset white;
+}
+
+
 /* Production Credit */
 .production-credit {
   text-align: center;
