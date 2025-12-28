@@ -559,7 +559,7 @@
             playPromise
               .then(() => {
                 // Wait for sound to finish (use duration or fallback timeout)
-                const duration = shutdownAudio.duration * 1000 || 3000; // fallback 3 seconds
+                const duration = shutdownAudio.duration * 520; // fallback 3 seconds
                 setTimeout(() => {
                   window.location.href = "bsod.html";
                 }, duration);
