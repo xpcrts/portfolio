@@ -17,7 +17,16 @@
     <link rel="icon" type="image/png" href="public/favicon.png" />
 
     <style>
-      /* Compact title bar - everything on one line */
+      body {
+        background: #008080; /* Classic Windows 95 teal */
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        transition: background 2s ease-in-out;
+        margin: 0;
+        padding: 0;
+      }
+
       .title-bar-right {
         display: flex;
         align-items: center;
@@ -43,7 +52,6 @@
       .real-location-weather { min-width: 100px; }
       .site-age { min-width: 95px; }
 
-      /* Slightly smaller close button to fit perfectly */
       .close-btn {
         width: 22px !important;
         height: 22px !important;
@@ -61,6 +69,77 @@
         z-index: -1;
         opacity: 0.75;
       }
+
+      /* Retro Calculator */
+      .calculator {
+        width: 280px;
+        background: silver;
+        border-top: 2px solid white;
+        border-left: 2px solid white;
+        border-right: 2px solid #404040;
+        border-bottom: 2px solid #404040;
+        box-shadow: 4px 4px 8px rgba(0,0,0,0.5);
+        font-family: "MS Sans Serif", Arial, sans-serif;
+        margin: 30px auto;
+      }
+
+      .calc-title {
+        background: navy;
+        color: white;
+        padding: 3px 8px;
+        font-weight: bold;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .calc-title img {
+        height: 20px;
+        width: auto;
+      }
+
+      .calc-display {
+        background: #c0dcc0;
+        border: 2px inset silver;
+        margin: 10px;
+        padding: 8px;
+        text-align: right;
+        font-size: 24px;
+        font-weight: bold;
+        min-height: 30px;
+        overflow: hidden;
+      }
+
+      .calc-buttons {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 4px;
+        padding: 10px;
+      }
+
+      .calc-btn {
+        background: silver;
+        border-top: 2px solid white;
+        border-left: 2px solid white;
+        border-right: 2px solid #404040;
+        border-bottom: 2px solid #404040;
+        padding: 12px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 16px;
+        cursor: pointer;
+      }
+
+      .calc-btn:active {
+        border-top: 2px solid #404040;
+        border-left: 2px solid #404040;
+        border-right: 2px solid white;
+        border-bottom: 2px solid white;
+      }
+
+      .calc-btn.op { color: red; }
+      .calc-btn.eq { background: #c0c0c0; }
     </style>
   </head>
   <body>
@@ -96,6 +175,7 @@
           <a href="#activities">Extracurricular Activities</a>
           <a href="#blog">Blog</a>
           <a href="#misc">Miscellaneous</a>
+          <a href="#calculator">🖩 Calculator</a>
         </nav>
 
         <div class="news">
@@ -124,6 +204,7 @@
           <a href="#activities" class="tab" data-tab="activities">Extracurricular Activities</a>
           <a href="#blog" class="tab" data-tab="blog">Blog</a>
           <a href="#misc" class="tab" data-tab="misc">Miscellaneous</a>
+          <a href="#calculator" class="tab" data-tab="calculator">🖩 Calculator</a>
         </div>
 
         <!-- Tab Content Panels -->
@@ -233,7 +314,7 @@
             <div class="award-item">
               <div class="award-header">
                 <div class="award-title">American University of Phnom Penh</div>
-                <div class="award-meta-inline">Cambodia, 2025</div>
+                <div class="award-meta-inline">Cambodia, 2016</div>
               </div>
               <div class="award-role">Fully Funded Bachelor’s Scholarship, Computer Science</div>
               <ul class="award-details">
@@ -388,6 +469,43 @@
             <h3>Other Interests</h3>
             <p>Triathlon, Reading, Building things</p>
           </section>
+
+          <!-- Calculator Tab -->
+          <section id="calculator" class="panel">
+            <h2 style="text-align:center; margin-bottom:20px;">Calculator</h2>
+            <div class="calculator">
+              <div class="calc-title">
+                <img src="public/calculator.png" alt="Calculator Icon" />
+                Calculator
+              </div>
+              <div class="calc-display" id="calc-display">0</div>
+              <div class="calc-buttons">
+                <div class="calc-btn" data-val="C">C</div>
+                <div class="calc-btn" data-val="+/-">+/-</div>
+                <div class="calc-btn" data-val="%">%</div>
+                <div class="calc-btn op" data-val="/">÷</div>
+
+                <div class="calc-btn" data-val="7">7</div>
+                <div class="calc-btn" data-val="8">8</div>
+                <div class="calc-btn" data-val="9">9</div>
+                <div class="calc-btn op" data-val="*">×</div>
+
+                <div class="calc-btn" data-val="4">4</div>
+                <div class="calc-btn" data-val="5">5</div>
+                <div class="calc-btn" data-val="6">6</div>
+                <div class="calc-btn op" data-val="-">−</div>
+
+                <div class="calc-btn" data-val="1">1</div>
+                <div class="calc-btn" data-val="2">2</div>
+                <div class="calc-btn" data-val="3">3</div>
+                <div class="calc-btn op" data-val="+">+</div>
+
+                <div class="calc-btn" data-val="0" style="grid-column: span 2;">0</div>
+                <div class="calc-btn" data-val=".">.</div>
+                <div class="calc-btn eq" data-val="=">=</div>
+              </div>
+            </div>
+          </section>
         </div>
       </main>
     </div>
@@ -403,7 +521,88 @@
     </audio>
 
     <script>
-      // === Site Age Counter (launched December 29, 2025) ===
+      // === Dynamic Wallpaper System ===
+      const wallpapers = [
+        "0a3cf335-dd9d-481c-8825-64a8c1ac5ceb.jpg",
+        "2f6eb8f7-ac63-422c-8d3e-d1833e37d27d.jpg",
+        "3c7c426c-4763-4452-8fd1-6d6d8eafde76.jpg",
+        "3f3ab5d7-3cfe-462b-b469-896308f674f9.jpg",
+        "4ea1221c-78f0-4952-a3c6-f16acb33b57f.jpg",
+        "6cb5f06a-5167-4cdf-83ff-4d2218b73942.jpg",
+        "7a3f7b64-a41f-4386-922b-dde3ec182579.jpg",
+        "8bd1e74d-f0c2-4941-9d4c-37a8d9a0ba6b.jpg",
+        "9b5ad3aa-31a8-473c-86da-cecd53eca8e6.jpg",
+        "9b77f624-ab13-4329-b644-38ffc6088983.jpg",
+        "9f1cca8e-e6a8-4d8c-9055-afb2431d4308.jpg",
+        "302b51cb-85ba-4cbb-9771-f23b9e91b095.jpg",
+        "338cdd6c-5056-416c-b77e-4ffc682c2db1.jpg",
+        "8502e077-3e49-48da-b282-712453978f11.jpg",
+        "371510cc-15ee-4cc4-8cfd-f4073315191c.jpg",
+        "466220ac-cc82-455f-8297-d78feb4ae3bd.jpg",
+        "843956cc-70c7-4578-97d5-e95102c0a7e2.jpg",
+        "88342918-078e-4612-bec8-0842e2406b54.jpg",
+        "5321285316_f9d942d8a9_o.jpg",
+        "14049218229_b6f7c79d16_k.jpg",
+        "33620928972_4f03e1f608_k.jpg",
+        "33650426736_a9080913b9_k.jpg",
+        "33968464326_a6f9cbc754_k.jpg",
+        "37060519312_4eb1782b87_k.jpg",
+        "a69f6614-9acf-41f4-86c7-3a12f4b573f1.jpg",
+        "a64105bc-af20-4aa2-a3ea-458ceb5d5ebd.jpg",
+        "a792405c-222b-40b0-96ad-58086a0a577e.jpg",
+        "ad2bd448-e7de-49b2-aaf6-c7a0827da7a4.jpg",
+        "adfc993f-5d2c-4bad-92b4-b41d6d98837e.jpg",
+        "ae57c197-bdc8-4656-93a9-3f8210fcab15.jpg",
+        "b2c7cdc7-e94f-4984-95f3-b6be9280c8c7.jpg",
+        "b66c855b-4515-48d2-8ae9-5a27b43aa194.jpg",
+        "bd587d33-198b-48a7-aaa2-46549dfb0a71.jpg",
+        "c8c70e92-d705-4279-932b-2c80ed62da2c.jpg",
+        "c12d467c-cd76-402d-8838-786ce93aa1d5.jpg",
+        "c581ce0c-12e6-404c-b92c-7ecb578bd8c0.jpg",
+        "c4738e39-76b6-4417-a43f-b11f3c87dcb6 (1).jpg",
+        "c4738e39-76b6-4417-a43f-b11f3c87dcb6.jpg",
+        "d3537936-0aa2-49f3-8d55-e0fa9195c254.jpg",
+        "daad7a1b-743b-4382-bdc4-29d829c3e83b.jpg",
+        "e7bb6005-5941-4785-bb14-c92504d5f096.jpg",
+        "f41131a9-11fd-445b-a036-09bd091bc7cd.jpg",
+        "photo-1546677104-56c5acd115ef (1).jpeg",
+        "photo-1551727221-3d23d78ad325.jpeg",
+        "photo-1563373336-e8dd1e084c68.jpeg",
+        "photo-1564257212190-0dd8c2b00156.jpeg",
+        "photo-1479689836735-bd21a38cbffd.jpeg",
+        "photo-1482160310982-3adf8b38daef.jpeg",
+        "photo-1537531579368-1af433cf6f06.jpeg",
+        "photo-154107210642-e763a7163ea5.jpeg"
+      ];
+
+      let currentWallpaperIndex = -1; // -1 = default teal
+
+      function setRandomWallpaper() {
+        let newIndex;
+        do {
+          newIndex = Math.floor(Math.random() * wallpapers.length);
+        } while (newIndex === currentWallpaperIndex);
+        currentWallpaperIndex = newIndex;
+        document.body.style.backgroundImage = `url('public/wallpapers/${wallpapers[newIndex]}')`;
+      }
+
+      function setDefaultBackground() {
+        currentWallpaperIndex = -1;
+        document.body.style.backgroundImage = 'none';
+        document.body.style.backgroundColor = '#008080';
+      }
+
+      // On first load: 50% classic teal, 50% random wallpaper
+      if (Math.random() < 0.5) {
+        setRandomWallpaper();
+      } else {
+        setDefaultBackground();
+      }
+
+      // After 5 minutes (300000 ms), switch to a random wallpaper
+      setTimeout(setRandomWallpaper, 300000);
+
+      // === Site Age Counter ===
       const siteLaunchDate = new Date("2025-12-29T00:00:00");
       const siteAgeElement = document.getElementById("site-age");
 
@@ -426,7 +625,7 @@
       updateSiteAge();
       setInterval(updateSiteAge, 60000);
 
-      // === Floating WordArt Screensaver ===
+      // === Floating WordArt ===
       const canvas = document.getElementById("wordart-canvas");
       const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
@@ -595,6 +794,73 @@
           }
         })
         .catch(() => realLocationWeather.textContent = "?? ??°C");
+
+      // === Calculator ===
+      const calcDisplay = document.getElementById("calc-display");
+      let currentInput = "0";
+      let operator = null;
+      let previousInput = null;
+      let waitingForNewInput = false;
+
+      function updateDisplay() {
+        calcDisplay.textContent = currentInput;
+      }
+
+      document.querySelectorAll(".calc-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const val = btn.getAttribute("data-val");
+
+          if (!isNaN(val) || val === ".") {
+            if (waitingForNewInput || currentInput === "0") {
+              currentInput = val === "." ? "0." : val;
+              waitingForNewInput = false;
+            } else {
+              if (val === "." && currentInput.includes(".")) return;
+              currentInput += val;
+            }
+          } else if (val === "C") {
+            currentInput = "0";
+            operator = null;
+            previousInput = null;
+            waitingForNewInput = false;
+          } else if (val === "+/-") {
+            currentInput = (parseFloat(currentInput) * -1).toString();
+          } else if (val === "%") {
+            currentInput = (parseFloat(currentInput) / 100).toString();
+          } else if (["+", "-", "*", "/"].includes(val)) {
+            if (previousInput !== null && !waitingForNewInput) {
+              calculate();
+            }
+            previousInput = parseFloat(currentInput);
+            operator = val;
+            waitingForNewInput = true;
+          } else if (val === "=") {
+            if (operator && previousInput !== null) {
+              calculate();
+              operator = null;
+              previousInput = null;
+            }
+          }
+
+          updateDisplay();
+        });
+      });
+
+      function calculate() {
+        let result;
+        const prev = previousInput;
+        const curr = parseFloat(currentInput);
+
+        if (operator === "+") result = prev + curr;
+        else if (operator === "-") result = prev - curr;
+        else if (operator === "*") result = prev * curr;
+        else if (operator === "/") result = prev / curr;
+
+        currentInput = result % 1 === 0 ? result.toString() : result.toFixed(8).replace(/0+$/, '').replace(/\.$/, '');
+        waitingForNewInput = true;
+      }
+
+      updateDisplay();
 
       // === Tab navigation, sounds, close button ===
       const tabAudio = document.getElementById("tab-sound");
