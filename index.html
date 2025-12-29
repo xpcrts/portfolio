@@ -17,35 +17,38 @@
     <link rel="icon" type="image/png" href="public/favicon.png" />
 
     <style>
+      /* Compact title bar - everything on one line */
       .title-bar-right {
         display: flex;
         align-items: center;
-        gap: 8px;
+        gap: 6px;
+        flex-wrap: nowrap;
       }
 
-      .real-clock {
+      .real-clock,
+      .real-location-weather,
+      .site-age {
         font-family: "DS-Digital", "Electronic", "Courier New", monospace;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: bold;
         color: red;
         background: black;
-        padding: 2px 6px;
-        min-width: 80px;
-        text-align: center;
-        border: 2px inset silver;
-      }
-
-      .real-location-weather {
-        font-family: "DS-Digital", "Electronic", "Courier New", monospace;
-        font-size: 18px;
-        font-weight: bold;
-        color: red;
-        background: black;
-        padding: 2px 6px;
-        min-width: 120px;
+        padding: 2px 5px;
         text-align: center;
         border: 2px inset silver;
         white-space: nowrap;
+      }
+
+      .real-clock { min-width: 70px; }
+      .real-location-weather { min-width: 100px; }
+      .site-age { min-width: 95px; }
+
+      /* Slightly smaller close button to fit perfectly */
+      .close-btn {
+        width: 22px !important;
+        height: 22px !important;
+        font-size: 14px !important;
+        line-height: 18px !important;
       }
 
       #wordart-canvas {
@@ -108,6 +111,7 @@
           <div class="title-bar-right">
             <div class="real-clock" id="real-clock">00:00:00</div>
             <div class="real-location-weather" id="real-location-weather">Loading...</div>
+            <div class="site-age" id="site-age">0d 0h 0m</div>
             <button class="close-btn" id="close-button">X</button>
           </div>
         </div>
@@ -204,7 +208,6 @@
               </ul>
             </div>
 
-            <!-- All other award items from your original code are restored below -->
             <div class="award-item">
               <div class="award-header">
                 <div class="award-title">CIMB 3D Conquest Competition</div>
@@ -230,7 +233,7 @@
             <div class="award-item">
               <div class="award-header">
                 <div class="award-title">American University of Phnom Penh</div>
-                <div class="award-meta-inline">Cambodia, 2016</div>
+                <div class="award-meta-inline">Cambodia, 2025</div>
               </div>
               <div class="award-role">Fully Funded Bachelor’s Scholarship, Computer Science</div>
               <ul class="award-details">
@@ -389,7 +392,7 @@
       </main>
     </div>
 
-    <div class="production-credit">a Chanrithisak Phok Production © 2016</div>
+    <div class="production-credit">a Chanrithisak Phok Production © 2025</div>
 
     <!-- Audio -->
     <audio id="tab-sound" preload="auto">
@@ -400,12 +403,35 @@
     </audio>
 
     <script>
-      // Floating WordArt with more styles (green, orange, blue)
-      const canvas = document.getElementById('wordart-canvas');
-      const ctx = canvas.getContext('2d');
+      // === Site Age Counter (launched December 29, 2025) ===
+      const siteLaunchDate = new Date("2025-12-29T00:00:00");
+      const siteAgeElement = document.getElementById("site-age");
+
+      function updateSiteAge() {
+        const now = new Date();
+        let diff = now - siteLaunchDate;
+
+        if (diff < 0) {
+          siteAgeElement.textContent = "Launching soon...";
+          return;
+        }
+
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+
+        siteAgeElement.textContent = `${days}d ${hours}h ${minutes}m`;
+      }
+
+      updateSiteAge();
+      setInterval(updateSiteAge, 60000);
+
+      // === Floating WordArt Screensaver ===
+      const canvas = document.getElementById("wordart-canvas");
+      const ctx = canvas.getContext("2d");
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      window.addEventListener('resize', () => {
+      window.addEventListener("resize", () => {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
       });
@@ -477,15 +503,15 @@
       let quotes = momentumStyleQuotes;
 
       const colorSchemes = [
-        { gradient: ['#006400', '#00ff00', '#006400'], shadow: '#003300', font: 'bold 70px Arial Black' },
-        { gradient: ['#008000', '#90ee90', '#008000'], shadow: '#004000', font: 'italic bold 75px Times New Roman' },
-        { gradient: ['#ff8c00', '#ffd700', '#ff8c00'], shadow: '#cc7000', font: 'bold 68px Impact' },
-        { gradient: ['#ffa500', '#ffff00', '#ffa500'], shadow: '#cc8400', font: 'bold 72px Comic Sans MS' },
-        { gradient: ['#00008b', '#00bfff', '#00008b'], shadow: '#00004d', font: 'bold 74px Georgia' },
-        { gradient: ['#4169e1', '#87cefa', '#4169e1'], shadow: '#203060', font: 'italic bold 70px Verdana' },
-        { gradient: ['#32cd32', '#adff2f', '#32cd32'], shadow: '#228b22', font: 'bold 65px Tahoma' },
-        { gradient: ['#ff4500', '#ff6347', '#ff4500'], shadow: '#b22222', font: 'bold 78px Courier New' },
-        { gradient: ['#1e90ff', '#87ceeb', '#1e90ff'], shadow: '#104e8b', font: 'italic 72px Arial' }
+        { gradient: ["#006400", "#00ff00", "#006400"], shadow: "#003300", font: "bold 70px Arial Black" },
+        { gradient: ["#008000", "#90ee90", "#008000"], shadow: "#004000", font: "italic bold 75px Times New Roman" },
+        { gradient: ["#ff8c00", "#ffd700", "#ff8c00"], shadow: "#cc7000", font: "bold 68px Impact" },
+        { gradient: ["#ffa500", "#ffff00", "#ffa500"], shadow: "#cc8400", font: "bold 72px Comic Sans MS" },
+        { gradient: ["#00008b", "#00bfff", "#00008b"], shadow: "#00004d", font: "bold 74px Georgia" },
+        { gradient: ["#4169e1", "#87cefa", "#4169e1"], shadow: "#203060", font: "italic bold 70px Verdana" },
+        { gradient: ["#32cd32", "#adff2f", "#32cd32"], shadow: "#228b22", font: "bold 65px Tahoma" },
+        { gradient: ["#ff4500", "#ff6347", "#ff4500"], shadow: "#b22222", font: "bold 78px Courier New" },
+        { gradient: ["#1e90ff", "#87ceeb", "#1e90ff"], shadow: "#104e8b", font: "italic 72px Arial" }
       ];
 
       class FloatingQuote {
@@ -518,9 +544,9 @@
           ctx.fillStyle = grad;
           ctx.shadowColor = this.style.shadow;
           ctx.shadowBlur = 20;
-          ctx.textAlign = 'center';
-          ctx.textBaseline = 'middle';
-          ctx.strokeStyle = '#000000';
+          ctx.textAlign = "center";
+          ctx.textBaseline = "middle";
+          ctx.strokeStyle = "#000000";
           ctx.lineWidth = 6;
           ctx.strokeText(this.text, 0, 0);
           ctx.fillText(this.text, 0, 0);
@@ -538,8 +564,8 @@
       }
       setTimeout(animate, 1000);
 
-      // Clock, Weather, Tabs, Sounds (unchanged)
-      const realClock = document.getElementById('real-clock');
+      // === Clock ===
+      const realClock = document.getElementById("real-clock");
       function updateClock() {
         const now = new Date();
         realClock.textContent = now.toTimeString().slice(0, 8);
@@ -547,9 +573,10 @@
       updateClock();
       setInterval(updateClock, 1000);
 
-      const realLocationWeather = document.getElementById('real-location-weather');
+      // === Location + Weather ===
+      const realLocationWeather = document.getElementById("real-location-weather");
       realLocationWeather.textContent = "Loading...";
-      fetch('https://ipapi.co/json/')
+      fetch("https://ipapi.co/json/")
         .then(res => res.json())
         .then(data => {
           const city = data.city || "Unknown";
@@ -569,6 +596,7 @@
         })
         .catch(() => realLocationWeather.textContent = "?? ??°C");
 
+      // === Tab navigation, sounds, close button ===
       const tabAudio = document.getElementById("tab-sound");
       const shutdownAudio = document.getElementById("shutdown-sound");
 
