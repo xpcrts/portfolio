@@ -26,61 +26,13 @@
 
     <style>
       body {
-        background: #008080;
+        background: #008080; /* Classic Windows 95 teal */
         background-size: cover;
         background-position: center;
         background-attachment: fixed;
         transition: background 2s ease-in-out;
         margin: 0;
         padding: 0;
-        min-height: 100vh;
-        overflow-x: hidden;
-      }
-
-      /* Back to Windows button when window is hidden */
-      .back-button {
-        position: fixed;
-        top: 20px;
-        left: 20px;
-        background: #c0c0c0;
-        color: black;
-        padding: 6px 14px;
-        font-weight: bold;
-        font-family: "MS Sans Serif", Arial, sans-serif;
-        font-size: 14px;
-        border-top: 2px solid white;
-        border-left: 2px solid white;
-        border-right: 2px solid black;
-        border-bottom: 2px solid black;
-        cursor: pointer;
-        z-index: 1000;
-        opacity: 0;
-        transition: opacity 1s ease-in-out;
-        pointer-events: none;
-      }
-
-      .back-button.visible {
-        opacity: 1;
-        pointer-events: auto;
-      }
-
-      .back-button:hover {
-        background: #dfdfdf;
-      }
-
-      /* Main window */
-      .main-window {
-        position: relative;
-        min-height: 100vh;
-        display: flex;
-        flex-direction: column;
-        transition: opacity 1s ease-in-out;
-        pointer-events: auto;
-      }
-
-      .main-window.hidden {
-        opacity: 0;
-        pointer-events: none;
       }
 
       .title-bar-right {
@@ -211,472 +163,540 @@
   <body>
     <canvas id="wordart-canvas"></canvas>
 
-    <!-- Back to Windows button (shown when main window is hidden) -->
-    <div class="back-button" id="back-button">Back to Windows</div>
+    <div class="wrapper">
+      <!-- Left Sidebar -->
+      <aside class="sidebar">
+        <div class="window-title">Chanrithisak Phok (Cal)</div>
 
-    <!-- Main window -->
-    <div class="main-window" id="main-window">
-      <div class="wrapper">
-        <!-- Left Sidebar -->
-        <aside class="sidebar">
-          <div class="window-title">Chanrithisak Phok (Cal)</div>
+        <img
+          src="public/chanrithisak_phok_profile.jpeg"
+          alt="Chanrithisak Phok (Cal)"
+          class="profile-img"
+        />
 
-          <img
-            src="public/chanrithisak_phok_profile.jpeg"
-            alt="Chanrithisak Phok (Cal)"
-            class="profile-img"
-          />
+        <div class="contact-info">
+          <i class="fas fa-user-graduate"></i>Degree: Undergraduate Student<br />
+          <i class="fas fa-map-marker-alt"></i>Based in: Sacramento, California,
+          US<br />
+          <i class="fab fa-linkedin fa-lg"></i>LinkedIn:
+          <a href="https://www.linkedin.com/in/phokchanrithisak/"
+            >Chanrithisak Phok</a
+          ><br />
+          <i class="fas fa-code"></i>Leetcode:
+          <a href="https://leetcode.com/u/xpcrts/">xpcrts</a><br />
+          <i class="fab fa-stack-overflow"></i>Stack Overflow:
+          <a
+            href="https://stackoverflow.com/users/8200791/chanrithisak-phok?tab=profile"
+          >
+            Chanrithisak Phok</a
+          ><br />
+          <i class="fas fa-envelope"></i>Contact:
+          <a href="mailto:phokchanrithisak@gmail.com"
+            >phokchanrithisak@gmail.com</a
+          ><br />
+          <i class="fab fa-github"></i>Github:
+          <a href="https://github.com/xpcrts"> xpcrts</a>
+        </div>
 
-          <div class="contact-info">
-            <i class="fas fa-user-graduate"></i>Degree: Undergraduate Student<br />
-            <i class="fas fa-map-marker-alt"></i>Based in: Sacramento,
-            California, US<br />
-            <i class="fab fa-linkedin fa-lg"></i>LinkedIn:
-            <a href="https://www.linkedin.com/in/phokchanrithisak/"
-              >Chanrithisak Phok</a
-            ><br />
-            <i class="fas fa-code"></i>Leetcode:
-            <a href="https://leetcode.com/u/xpcrts/">xpcrts</a><br />
-            <i class="fab fa-stack-overflow"></i>Stack Overflow:
-            <a
-              href="https://stackoverflow.com/users/8200791/chanrithisak-phok?tab=profile"
-            >
-              Chanrithisak Phok</a
-            ><br />
-            <i class="fas fa-envelope"></i>Contact:
-            <a href="mailto:phokchanrithisak@gmail.com"
-              >phokchanrithisak@gmail.com</a
-            ><br />
-            <i class="fab fa-github"></i>Github:
-            <a href="https://github.com/xpcrts"> xpcrts</a>
-          </div>
+        <nav class="sidebar-nav">
+          <a href="#about">About Me</a>
+          <a href="#experience">Industrial Experience</a>
+          <a href="#awards">Honors & Awards</a>
+          <a href="#activities">Extracurricular Activities</a>
+          <a href="#blog">Blog</a>
+          <a href="#misc">Miscellaneous</a>
+          <a href="#calculator">Calculator</a>
+        </nav>
 
-          <nav class="sidebar-nav">
-            <a href="#about">About Me</a>
-            <a href="#experience">Industrial Experience</a>
-            <a href="#awards">Honors & Awards</a>
-            <a href="#activities">Extracurricular Activities</a>
-            <a href="#blog">Blog</a>
-            <a href="#misc">Miscellaneous</a>
-            <a href="#calculator">Calculator</a>
-          </nav>
+        <div class="news">
+          <strong>News (More Updates)</strong><br />
+          No latest blog post available<br />
+        </div>
+      </aside>
 
-          <div class="news">
-            <strong>News (More Updates)</strong><br />
-            No latest blog post available<br />
-          </div>
-        </aside>
-
-        <!-- Right Main Content -->
-        <main class="main-content">
-          <div class="title-bar">
-            <span class="window-title">Welcome to My Homepage</span>
-            <div class="title-bar-right">
-              <div class="real-clock" id="real-clock">00:00:00</div>
-              <div class="real-location-weather" id="real-location-weather">
-                Loading...
-              </div>
-              <div class="site-age" id="site-age">0d 0h 0m</div>
-              <button class="close-btn" id="close-button">X</button>
+      <!-- Right Main Content -->
+      <main class="main-content">
+        <div class="title-bar">
+          <span class="window-title">Welcome to My Homepage</span>
+          <div class="title-bar-right">
+            <div class="real-clock" id="real-clock">00:00:00</div>
+            <div class="real-location-weather" id="real-location-weather">
+              Loading...
             </div>
+            <div class="site-age" id="site-age">0d 0h 0m</div>
+            <button class="close-btn" id="close-button">X</button>
           </div>
+        </div>
 
-          <!-- Tabs -->
-          <div class="tabs">
-            <a href="#about" class="tab active" data-tab="about">About Me</a>
-            <a href="#experience" class="tab" data-tab="experience"
-              >Industrial Experience</a
-            >
-            <a href="#awards" class="tab" data-tab="awards">Honors & Awards</a>
-            <a href="#activities" class="tab" data-tab="activities"
-              >Extracurricular Activities</a
-            >
-            <a href="#blog" class="tab" data-tab="blog">Blog</a>
-            <a href="#misc" class="tab" data-tab="misc">Miscellaneous</a>
-            <a href="#calculator" class="tab" data-tab="calculator"
-              >Calculator</a
-            >
-          </div>
+        <!-- Tabs -->
+        <div class="tabs">
+          <a href="#about" class="tab active" data-tab="about">About Me</a>
+          <a href="#experience" class="tab" data-tab="experience"
+            >Industrial Experience</a
+          >
+          <a href="#awards" class="tab" data-tab="awards">Honors & Awards</a>
+          <a href="#activities" class="tab" data-tab="activities"
+            >Extracurricular Activities</a
+          >
+          <a href="#blog" class="tab" data-tab="blog">Blog</a>
+          <a href="#misc" class="tab" data-tab="misc">Miscellaneous</a>
+          <a href="#calculator" class="tab" data-tab="calculator">Calculator</a>
+        </div>
 
-          <!-- Tab Content Panels -->
-          <div class="tab-content">
-            <!-- About Me -->
-            <section id="about" class="panel active">
-              <h2>About Me</h2>
-              <p>
-                I am a Lead Full-Stack Software Engineer building scalable
-                mobile and web systems, with a growing focus on Applied AI
-                Engineering and cybersecurity. My work explores how intelligent
-                systems can be integrated into production software while
-                maintaining strong guarantees around security, performance, and
-                reliability. I am particularly interested in designing systems
-                that scale in practice, remain secure under real-world
-                constraints, and meaningfully improve how people interact with
-                technology.
-              </p>
-            </section>
+        <!-- Tab Content Panels -->
+        <div class="tab-content">
+          <!-- About Me -->
+          <section id="about" class="panel active">
+            <h2>About Me</h2>
+            <p>
+              I am a Lead Full-Stack Software Engineer building scalable mobile
+              and web systems, with a growing focus on Applied AI Engineering
+              and cybersecurity. My work explores how intelligent systems can be
+              integrated into production software while maintaining strong
+              guarantees around security, performance, and reliability. I am
+              particularly interested in designing systems that scale in
+              practice, remain secure under real-world constraints, and
+              meaningfully improve how people interact with technology.
+            </p>
+          </section>
 
-            <!-- Industrial Experience -->
-            <section id="experience" class="panel">
-              <h2>Industrial Experience</h2>
-              <div class="publication">
-                <strong>Lecturing at Kirirom Institute of Technology</strong
-                ><br />
-                Lecturer in FullStack Web Development, Cloud DevOps, and Agile
-                Methodologies: Designed and delivered advanced courses covering
-                Node.js, Express, RESTful and GraphQL APIs, React.js, Next.js,
-                Docker, Kubernetes, Microservices, AWS, and Scrum. Mentored
-                students, guiding hands-on projects and applying real-world
-                cloud and agile practices.
-              </div>
-              <div class="publication">
-                <strong>Blockchain-Based Activity & Rewards Platform</strong
-                ><br />
-                A mobile application inspired by activity-based incentive
-                models, combining blockchain-backed assets with real-world user
-                activity. The platform supports large-scale daily usage,
-                integrates on-chain and off-chain components, and is designed to
-                operate reliably under sustained user load.
-              </div>
-              <div class="publication">
-                <strong
-                  >Kenzo (LVMH Group) — Global Retail Training & Communication
-                  Platform</strong
-                ><br />
-                A mobile and web platform for retail staff training and internal
-                communication, deployed across 118 international retail
-                locations. Includes region-specific infrastructure and real-time
-                updates.
-              </div>
-              <div class="publication">
-                <strong
-                  >Laboratory Gilbert — Progressive Web E-Commerce
-                  Platform</strong
-                ><br />
-                A progressive web application for e-commerce with global
-                real-time availability, transaction handling, and performance
-                monitoring.
-              </div>
-              <div class="publication">
-                <strong>Distributed Insurance Self-Service Kiosk System</strong
-                ><br />
-                A distributed self-service kiosk platform for insurance sales
-                across Southeast Asia, integrated with enterprise and legacy
-                systems.
-              </div>
-              <div class="publication">
-                <strong>Speech Emotion & Stress Analysis System</strong><br />
-                An applied AI research system analyzing phonemes, prosody, and
-                acoustic features to detect emotion and stress in call centers.
-              </div>
-            </section>
+          <!-- Industrial Experience -->
+          <section id="experience" class="panel">
+            <h2>Industrial Experience</h2>
+            <div class="publication">
+              <strong>Lecturing at Kirirom Institute of Technology</strong
+              ><br />
+              Lecturer in FullStack Web Development, Cloud DevOps, and Agile
+              Methodologies: Designed and delivered advanced courses covering
+              Node.js, Express, RESTful and GraphQL APIs, React.js, Next.js,
+              Docker, Kubernetes, Microservices, AWS, and Scrum. Mentored
+              students, guiding hands-on projects and applying real-world cloud
+              and agile practices.
+            </div>
+            <div class="publication">
+              <strong>Blockchain-Based Activity & Rewards Platform</strong
+              ><br />
+              A mobile application inspired by activity-based incentive models,
+              combining blockchain-backed assets with real-world user activity.
+              The platform supports large-scale daily usage, integrates on-chain
+              and off-chain components, and is designed to operate reliably
+              under sustained user load.
+            </div>
+            <div class="publication">
+              <strong
+                >Kenzo (LVMH Group) — Global Retail Training & Communication
+                Platform</strong
+              ><br />
+              A mobile and web platform for retail staff training and internal
+              communication, deployed across 118 international retail locations.
+              Includes region-specific infrastructure and real-time updates.
+            </div>
+            <div class="publication">
+              <strong
+                >Laboratory Gilbert — Progressive Web E-Commerce
+                Platform</strong
+              ><br />
+              A progressive web application for e-commerce with global real-time
+              availability, transaction handling, and performance monitoring.
+            </div>
+            <div class="publication">
+              <strong>Distributed Insurance Self-Service Kiosk System</strong
+              ><br />
+              A distributed self-service kiosk platform for insurance sales
+              across Southeast Asia, integrated with enterprise and legacy
+              systems.
+            </div>
+            <div class="publication">
+              <strong>Speech Emotion & Stress Analysis System</strong><br />
+              An applied AI research system analyzing phonemes, prosody, and
+              acoustic features to detect emotion and stress in call centers.
+            </div>
+          </section>
 
-            <!-- Honors & Awards -->
-            <section id="awards" class="panel">
-              <h2>Honors & Awards</h2>
+          <!-- Honors & Awards -->
+          <section id="awards" class="panel">
+            <h2>Honors & Awards</h2>
 
-              <div class="award-item">
-                <div class="award-header">
-                  <div class="award-title">ASEAN Data Science Explorer</div>
-                  <div class="award-meta-inline">Cambodia, 2023</div>
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">ASEAN Data Science Explorer</div>
+                <div class="award-meta-inline">Cambodia, 2023</div>
+              </div>
+              <div class="award-role">National Final Participant</div>
+              <ul class="award-details">
+                <li>
+                  Recognized for advancing to the national finals in a regional
+                  data science competition, representing Cambodia.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">
+                  YSEALI Game Changers Workshop & Game Jam (U.S. Department of
+                  State)
                 </div>
-                <div class="award-role">National Final Participant</div>
-                <ul class="award-details">
-                  <li>
-                    Recognized for advancing to the national finals in a
-                    regional data science competition, representing Cambodia.
-                  </li>
-                </ul>
+                <div class="award-meta-inline">Malaysia, May 2023</div>
               </div>
+              <div class="award-role">Selected Participant</div>
+              <ul class="award-details">
+                <li>
+                  Chosen through a competitive selection process to join a
+                  regional cohort focused on innovation, technology, and social
+                  impact.
+                </li>
+              </ul>
+            </div>
 
-              <div class="award-item">
-                <div class="award-header">
-                  <div class="award-title">
-                    YSEALI Game Changers Workshop & Game Jam (U.S. Department of
-                    State)
-                  </div>
-                  <div class="award-meta-inline">Malaysia, May 2023</div>
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">East Asia Summit Hackathon</div>
+                <div class="award-meta-inline">
+                  Jakarta, Indonesia, December 2022
                 </div>
-                <div class="award-role">Selected Participant</div>
-                <ul class="award-details">
-                  <li>
-                    Chosen through a competitive selection process to join a
-                    regional cohort focused on innovation, technology, and
-                    social impact.
-                  </li>
-                </ul>
               </div>
+              <div class="award-role">Gold Medalist</div>
+              <ul class="award-details">
+                <li>
+                  As part of a two-person team, built Ecopoint, a customer
+                  loyalty app designed to combat marine plastic pollution in the
+                  East Asia region. The project won a gold medal for its impact.
+                </li>
+                <li>
+                  Exclusively invited by the Commonwealth Scientific and
+                  Industrial Research Organisation (CSIRO) to join a moonshot
+                  technology startup in Vietnam.
+                </li>
+              </ul>
+            </div>
 
-              <div class="award-item">
-                <div class="award-header">
-                  <div class="award-title">East Asia Summit Hackathon</div>
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">CIMB 3D Conquest Competition</div>
+                <div class="award-meta-inline">Singapore, 2018</div>
+              </div>
+              <div class="award-role">Top 6 Finalist</div>
+              <ul class="award-details">
+                <li>
+                  Represented Cambodia in the competition and received an
+                  achievement award in the Coding Track.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">
+                  SmartStart Young Innovator Award Program
+                </div>
+                <div class="award-meta-inline">Cambodia, 2018</div>
+              </div>
+              <div class="award-role">Top 15 Finalist</div>
+              <ul class="award-details">
+                <li>
+                  Recognized as one of the top 15 finalists in a national
+                  innovation competition for young innovators in Cambodia.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">American University of Phnom Penh</div>
+                <div class="award-meta-inline">Cambodia, 2016</div>
+              </div>
+              <div class="award-role">
+                Fully Funded Bachelor’s Scholarship, Computer Science
+              </div>
+              <ul class="award-details">
+                <li>
+                  Awarded a fully funded scholarship to pursue a Bachelor’s
+                  degree in Computer Science.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">Royal University of Phnom Penh</div>
+                <div class="award-meta-inline">Cambodia, 2016</div>
+              </div>
+              <div class="award-role">
+                Top-Ranked Recipient, Computer Science Bachelor’s Scholarship
+              </div>
+              <ul class="award-details">
+                <li>
+                  Selected as the highest-ranked candidate to receive a fully
+                  funded Bachelor’s scholarship in Computer Science.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">Paragon International University</div>
+                <div class="award-meta-inline">Cambodia, 2016</div>
+              </div>
+              <div class="award-role">
+                Computer Science Bachelor’s Scholarship
+              </div>
+              <ul class="award-details">
+                <li>
+                  Awarded a fully funded scholarship to pursue a Bachelor’s
+                  degree in Computer Science.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">A+ National Diploma Exam Award</div>
+                <div class="award-meta-inline">Cambodia, 2016</div>
+              </div>
+              <div class="award-role">
+                Awarded by the Prime Minister Hun Sen
+              </div>
+              <ul class="award-details">
+                <li>
+                  Achieved a top score in the National Diploma Exam with a GPA
+                  of 99.881, recognized at the national level by the Prime
+                  Minister of Cambodia.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Extracurricular Activities -->
+          <section id="activities" class="panel">
+            <h2>Extracurricular Activities</h2>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">Technovation Girls Cambodia</div>
+                <div class="award-meta-inline">Cambodia, 2021</div>
+              </div>
+              <div class="award-role">Volunteer</div>
+              <ul class="award-details">
+                <li>
+                  Mentored and contributed expertise to support young girls'
+                  teams in learning about coding, AI, and real-world
+                  problem-solving, while helping them develop skills and
+                  networking opportunities.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">
+                  Sokhotey COVID-19 System for Ministry of Education, Youth and
+                  Sport of Cambodia
+                </div>
+                <div class="award-meta-inline">Cambodia, 2020</div>
+              </div>
+              <div class="award-role">Initiator & Developer</div>
+              <ul class="award-details">
+                <li>
+                  Initiated and developed a free contact tracing app with QR
+                  code functionality during Cambodia's COVID-19 peak, aiding in
+                  awareness and prevention efforts.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">My Book My Future Library Charity</div>
+                <div class="award-meta-inline">Cambodia, 2015</div>
+              </div>
+              <div class="award-role">Volunteer</div>
+              <ul class="award-details">
+                <li>
+                  Raised 2,500 USD and various study materials (including
+                  second-hand children's reading books) as a donation to build a
+                  library for a rural primary school in Battambang province,
+                  Cambodia.
+                </li>
+              </ul>
+            </div>
+
+            <div class="award-item">
+              <div class="award-header">
+                <div class="award-title">
+                  Bonn Phum - Khmer Village Festival
+                </div>
+                <div class="award-meta-inline">Cambodia, 2015</div>
+              </div>
+              <div class="award-role">Volunteer & Coordinator</div>
+              <ul class="award-details">
+                <li>
+                  Organized and coordinated the entire three-day program for
+                  this folklife festival celebrating Cambodian culture, aimed at
+                  conserving traditional cultural practices.
+                </li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- Blog -->
+          <section id="blog" class="panel">
+            <h2>Blog</h2>
+            <div class="award-item blog-card">
+              <div
+                class="blog-card-inner"
+                style="display: flex; gap: 15px; align-items: flex-start"
+              >
+                <a
+                  href="https://aseanfoundation.org/programme/east-asia-summit-hackathon/"
+                >
+                  <img
+                    src="public/eas-hackathon-thumb.jpg"
+                    alt="East Asia Summit Hackathon"
+                    style="width: 120px; height: auto; border: 2px solid black"
+                  />
+                </a>
+                <div style="flex: 1">
+                  <h3 class="award-title">
+                    <a
+                      href="https://aseanfoundation.org/programme/east-asia-summit-hackathon/"
+                      style="color: purple; text-decoration: none"
+                    >
+                      East Asia Summit Hackathon
+                    </a>
+                  </h3>
                   <div class="award-meta-inline">
                     Jakarta, Indonesia, December 2022
                   </div>
-                </div>
-                <div class="award-role">Gold Medalist</div>
-                <ul class="award-details">
-                  <li>
-                    As part of a two-person team, built Ecopoint, a customer
-                    loyalty app designed to combat marine plastic pollution in
-                    the East Asia region. The project won a gold medal for its
-                    impact.
-                  </li>
-                  <li>
-                    Exclusively invited by the Commonwealth Scientific and
-                    Industrial Research Organisation (CSIRO) to join a moonshot
-                    technology startup in Vietnam.
-                  </li>
-                </ul>
-              </div>
-
-              <!-- Add the rest of your awards as in previous versions -->
-            </section>
-
-            <!-- Extracurricular Activities, Blog, Miscellaneous unchanged -->
-            <section id="activities" class="panel">
-              <h2>Extracurricular Activities</h2>
-
-              <div class="award-item">
-                <div class="award-header">
-                  <div class="award-title">Technovation Girls Cambodia</div>
-                  <div class="award-meta-inline">Cambodia, 2021</div>
-                </div>
-                <div class="award-role">Volunteer</div>
-                <ul class="award-details">
-                  <li>
-                    Mentored and contributed expertise to support young girls'
-                    teams in learning about coding, AI, and real-world
-                    problem-solving, while helping them develop skills and
-                    networking opportunities.
-                  </li>
-                </ul>
-              </div>
-
-              <div class="award-item">
-                <div class="award-header">
-                  <div class="award-title">
-                    Sokhotey COVID-19 System for Ministry of Education, Youth
-                    and Sport of Cambodia
-                  </div>
-                  <div class="award-meta-inline">Cambodia, 2020</div>
-                </div>
-                <div class="award-role">Initiator & Developer</div>
-                <ul class="award-details">
-                  <li>
-                    Initiated and developed a free contact tracing app with QR
-                    code functionality during Cambodia's COVID-19 peak, aiding
-                    in awareness and prevention efforts.
-                  </li>
-                </ul>
-              </div>
-
-              <div class="award-item">
-                <div class="award-header">
-                  <div class="award-title">
-                    My Book My Future Library Charity
-                  </div>
-                  <div class="award-meta-inline">Cambodia, 2015</div>
-                </div>
-                <div class="award-role">Volunteer</div>
-                <ul class="award-details">
-                  <li>
-                    Raised 2,500 USD and various study materials (including
-                    second-hand children's reading books) as a donation to build
-                    a library for a rural primary school in Battambang province,
-                    Cambodia.
-                  </li>
-                </ul>
-              </div>
-
-              <div class="award-item">
-                <div class="award-header">
-                  <div class="award-title">
-                    Bonn Phum - Khmer Village Festival
-                  </div>
-                  <div class="award-meta-inline">Cambodia, 2015</div>
-                </div>
-                <div class="award-role">Volunteer & Coordinator</div>
-                <ul class="award-details">
-                  <li>
-                    Organized and coordinated the entire three-day program for
-                    this folklife festival celebrating Cambodian culture, aimed
-                    at conserving traditional cultural practices.
-                  </li>
-                </ul>
-              </div>
-            </section>
-
-            <!-- Blog -->
-            <section id="blog" class="panel">
-              <h2>Blog</h2>
-              <div class="award-item blog-card">
-                <div
-                  class="blog-card-inner"
-                  style="display: flex; gap: 15px; align-items: flex-start"
-                >
+                  <div class="award-role">Regional Hackathon Participant</div>
+                  <ul class="award-details">
+                    <li>
+                      A regional platform mobilizing youth innovation to tackle
+                      marine plastic pollution. Organized by ASEAN Foundation
+                      with CSIRO and co-hosted by Australia, India, and
+                      Singapore.
+                    </li>
+                  </ul>
                   <a
                     href="https://aseanfoundation.org/programme/east-asia-summit-hackathon/"
+                    class="blog-button"
+                    >Read Blog</a
                   >
-                    <img
-                      src="public/eas-hackathon-thumb.jpg"
-                      alt="East Asia Summit Hackathon"
-                      style="
-                        width: 120px;
-                        height: auto;
-                        border: 2px solid black;
-                      "
-                    />
-                  </a>
-                  <div style="flex: 1">
-                    <h3 class="award-title">
-                      <a
-                        href="https://aseanfoundation.org/programme/east-asia-summit-hackathon/"
-                        style="color: purple; text-decoration: none"
-                      >
-                        East Asia Summit Hackathon
-                      </a>
-                    </h3>
-                    <div class="award-meta-inline">
-                      Jakarta, Indonesia, December 2022
-                    </div>
-                    <div class="award-role">Regional Hackathon Participant</div>
-                    <ul class="award-details">
-                      <li>
-                        A regional platform mobilizing youth innovation to
-                        tackle marine plastic pollution. Organized by ASEAN
-                        Foundation with CSIRO and co-hosted by Australia, India,
-                        and Singapore.
-                      </li>
-                    </ul>
-                    <a
-                      href="https://aseanfoundation.org/programme/east-asia-summit-hackathon/"
-                      class="blog-button"
-                      >Read Blog</a
-                    >
-                  </div>
                 </div>
               </div>
+            </div>
 
-              <div class="blog-card">
-                <a
-                  href="https://www.facebook.com/KITinstitute/photos/1793063127488865/"
-                >
-                  <img
-                    src="public/cimb.jpg"
-                    alt="KIT Academic Highlight - Student Life"
-                  />
-                </a>
-                <div class="blog-card-content">
-                  <h3>
-                    <a
-                      href="https://www.facebook.com/KITinstitute/photos/1793063127488865/"
-                      style="text-decoration: none"
-                    >
-                      KIT Academic Highlights – Student Life
-                    </a>
-                  </h3>
-                  <p>
-                    A snapshot from Kirirom Institute of Technology’s student
-                    life showcase, highlighting community and academic
-                    experiences.
-                  </p>
+            <div class="blog-card">
+              <a
+                href="https://www.facebook.com/KITinstitute/photos/1793063127488865/"
+              >
+                <img
+                  src="public/cimb.jpg"
+                  alt="KIT Academic Highlight - Student Life"
+                />
+              </a>
+              <div class="blog-card-content">
+                <h3>
                   <a
                     href="https://www.facebook.com/KITinstitute/photos/1793063127488865/"
-                    class="blog-button"
-                    >View on Facebook</a
+                    style="text-decoration: none"
                   >
-                </div>
-              </div>
-            </section>
-
-            <!-- Miscellaneous -->
-            <section id="misc" class="panel">
-              <h2>Miscellaneous</h2>
-              <h3>Fitness & Running</h3>
-              <p>My Strava activity and running stats:</p>
-              <div style="text-align: center; margin: 30px 0">
-                <iframe
-                  height="160"
-                  width="300"
-                  frameborder="0"
-                  allowtransparency="true"
-                  scrolling="no"
-                  src="https://www.strava.com/athletes/42131233/stats"
-                ></iframe>
-                <br /><br />
+                    KIT Academic Highlights – Student Life
+                  </a>
+                </h3>
+                <p>
+                  A snapshot from Kirirom Institute of Technology’s student life
+                  showcase, highlighting community and academic experiences.
+                </p>
                 <a
-                  href="https://www.strava.com/athletes/42131233"
-                  style="color: blue; text-decoration: underline"
+                  href="https://www.facebook.com/KITinstitute/photos/1793063127488865/"
+                  class="blog-button"
+                  >View on Facebook</a
                 >
-                  Follow me on Strava →
-                </a>
               </div>
+            </div>
+          </section>
 
-              <h3>Books I Recommend</h3>
-              <ul>
-                <li><strong>Clean Code</strong> by Robert C. Martin</li>
-                <li>
-                  <strong>The Pragmatic Programmer</strong> by David Thomas &
-                  Andrew Hunt
-                </li>
-                <li><strong>Atomic Habits</strong> by James Clear</li>
-              </ul>
+          <!-- Miscellaneous -->
+          <section id="misc" class="panel">
+            <h2>Miscellaneous</h2>
+            <h3>Fitness & Running</h3>
+            <p>My Strava activity and running stats:</p>
+            <div style="text-align: center; margin: 30px 0">
+              <iframe
+                height="160"
+                width="300"
+                frameborder="0"
+                allowtransparency="true"
+                scrolling="no"
+                src="https://www.strava.com/athletes/42131233/stats"
+              ></iframe>
+              <br /><br />
+              <a
+                href="https://www.strava.com/athletes/42131233"
+                style="color: blue; text-decoration: underline"
+              >
+                Follow me on Strava →
+              </a>
+            </div>
 
-              <h3>Other Interests</h3>
-              <p>Triathlon, Reading, Building things</p>
-            </section>
+            <h3>Books I Recommend</h3>
+            <ul>
+              <li><strong>Clean Code</strong> by Robert C. Martin</li>
+              <li>
+                <strong>The Pragmatic Programmer</strong> by David Thomas &
+                Andrew Hunt
+              </li>
+              <li><strong>Atomic Habits</strong> by James Clear</li>
+            </ul>
 
-            <!-- Calculator Tab -->
-            <section id="calculator" class="panel">
-              <h2 style="text-align: center; margin-bottom: 20px">
+            <h3>Other Interests</h3>
+            <p>Triathlon, Reading, Building things</p>
+          </section>
+
+          <!-- Calculator Tab -->
+          <section id="calculator" class="panel">
+            <h2 style="text-align: center; margin-bottom: 20px">Calculator</h2>
+            <div class="calculator">
+              <div class="calc-title">
+                <img src="public/calculator.png" alt="Calculator Icon" />
                 Calculator
-              </h2>
-              <div class="calculator">
-                <div class="calc-title">
-                  <img src="public/calculator.png" alt="Calculator Icon" />
-                  Calculator
-                </div>
-                <div class="calc-display" id="calc-display">0</div>
-                <div class="calc-buttons">
-                  <div class="calc-btn" data-val="C">C</div>
-                  <div class="calc-btn" data-val="+/-">+/-</div>
-                  <div class="calc-btn" data-val="%">%</div>
-                  <div class="calc-btn op" data-val="/">÷</div>
-
-                  <div class="calc-btn" data-val="7">7</div>
-                  <div class="calc-btn" data-val="8">8</div>
-                  <div class="calc-btn" data-val="9">9</div>
-                  <div class="calc-btn op" data-val="*">×</div>
-
-                  <div class="calc-btn" data-val="4">4</div>
-                  <div class="calc-btn" data-val="5">5</div>
-                  <div class="calc-btn" data-val="6">6</div>
-                  <div class="calc-btn op" data-val="-">−</div>
-
-                  <div class="calc-btn" data-val="1">1</div>
-                  <div class="calc-btn" data-val="2">2</div>
-                  <div class="calc-btn" data-val="3">3</div>
-                  <div class="calc-btn op" data-val="+">+</div>
-
-                  <div
-                    class="calc-btn"
-                    data-val="0"
-                    style="grid-column: span 2"
-                  >
-                    0
-                  </div>
-                  <div class="calc-btn" data-val=".">.</div>
-                  <div class="calc-btn eq" data-val="=">=</div>
-                </div>
               </div>
-            </section>
-          </div>
-        </main>
-      </div>
+              <div class="calc-display" id="calc-display">0</div>
+              <div class="calc-buttons">
+                <div class="calc-btn" data-val="C">C</div>
+                <div class="calc-btn" data-val="+/-">+/-</div>
+                <div class="calc-btn" data-val="%">%</div>
+                <div class="calc-btn op" data-val="/">÷</div>
 
-      <div class="production-credit">a Chanrithisak Phok Production © 2025</div>
+                <div class="calc-btn" data-val="7">7</div>
+                <div class="calc-btn" data-val="8">8</div>
+                <div class="calc-btn" data-val="9">9</div>
+                <div class="calc-btn op" data-val="*">×</div>
+
+                <div class="calc-btn" data-val="4">4</div>
+                <div class="calc-btn" data-val="5">5</div>
+                <div class="calc-btn" data-val="6">6</div>
+                <div class="calc-btn op" data-val="-">−</div>
+
+                <div class="calc-btn" data-val="1">1</div>
+                <div class="calc-btn" data-val="2">2</div>
+                <div class="calc-btn" data-val="3">3</div>
+                <div class="calc-btn op" data-val="+">+</div>
+
+                <div class="calc-btn" data-val="0" style="grid-column: span 2">
+                  0
+                </div>
+                <div class="calc-btn" data-val=".">.</div>
+                <div class="calc-btn eq" data-val="=">=</div>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
     </div>
+
+    <div class="production-credit">a Chanrithisak Phok Production © 2025</div>
 
     <!-- Audio -->
     <audio id="tab-sound" preload="auto">
@@ -687,34 +707,6 @@
     </audio>
 
     <script>
-      // === Window Hide / Show Logic ===
-      const mainWindow = document.getElementById("main-window");
-      const backButton = document.getElementById("back-button");
-
-      function hideWindow() {
-        mainWindow.classList.add("hidden");
-        backButton.classList.add("visible");
-      }
-
-      function showWindow() {
-        mainWindow.classList.remove("hidden");
-        backButton.classList.remove("visible");
-      }
-
-      // Click X → play shutdown sound and hide window
-      document.getElementById("close-button").addEventListener("click", (e) => {
-        e.preventDefault();
-        const shutdownAudio = document.getElementById("shutdown-sound");
-        shutdownAudio.currentTime = 0;
-        shutdownAudio.volume = 0.8;
-        shutdownAudio.play().catch(() => {});
-        hideWindow();
-      });
-
-      // Click "Back to Windows" or press any key → show window again
-      backButton.addEventListener("click", showWindow);
-      document.addEventListener("keydown", showWindow);
-
       // === Dynamic Wallpaper System ===
       const wallpapers = [
         "0a3cf335-dd9d-481c-8825-64a8c1ac5ceb.jpg",
@@ -769,7 +761,7 @@
         "photo-154107210642-e763a7163ea5.jpeg",
       ];
 
-      let currentWallpaperIndex = -1;
+      let currentWallpaperIndex = -1; // -1 = default teal
 
       function setRandomWallpaper() {
         let newIndex;
@@ -786,12 +778,14 @@
         document.body.style.backgroundColor = "#008080";
       }
 
+      // On first load: 50% classic teal, 50% random wallpaper
       if (Math.random() < 0.5) {
         setRandomWallpaper();
       } else {
         setDefaultBackground();
       }
 
+      // After 5 minutes (300000 ms), switch to a random wallpaper
       setTimeout(setRandomWallpaper, 300000);
 
       // === Site Age Counter ===
@@ -830,7 +824,6 @@
       });
 
       const momentumStyleQuotes = [
-        // Your motivational quotes
         "Focus on being productive instead of busy.",
         "The secret of getting ahead is getting started.",
         "Don't watch the clock; do what it does. Keep going.",
@@ -1302,13 +1295,32 @@
 
       updateDisplay();
 
-      // === Tab navigation, sounds ===
+      // === Tab navigation, sounds, close button ===
       const tabAudio = document.getElementById("tab-sound");
+      const shutdownAudio = document.getElementById("shutdown-sound");
 
       function playTabSound() {
         if (tabAudio) {
           tabAudio.currentTime = 0;
           tabAudio.play().catch(() => {});
+        }
+      }
+
+      function playShutdownAndRedirect() {
+        if (shutdownAudio) {
+          shutdownAudio.currentTime = 0;
+          shutdownAudio.volume = 0.8;
+          shutdownAudio
+            .play()
+            .then(() => {
+              setTimeout(
+                () => (window.location.href = "bsod.html"),
+                (shutdownAudio.duration || 3) * 1000
+              );
+            })
+            .catch(() => (window.location.href = "bsod.html"));
+        } else {
+          window.location.href = "bsod.html";
         }
       }
 
@@ -1333,6 +1345,11 @@
           const target = link.getAttribute("href").substring(1);
           document.querySelector(`.tab[data-tab="${target}"]`).click();
         });
+      });
+
+      document.getElementById("close-button").addEventListener("click", (e) => {
+        e.preventDefault();
+        playShutdownAndRedirect();
       });
 
       document.addEventListener("DOMContentLoaded", () => {
