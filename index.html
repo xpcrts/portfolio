@@ -295,6 +295,7 @@
             <a href="#blog">Blog</a>
             <a href="#misc">Miscellaneous</a>
             <a href="#calculator">Calculator</a>
+            <a href="#countdown">Countdown</a>
           </nav>
 
           <div class="news">
@@ -346,6 +347,7 @@
             <a href="#calculator" class="tab" data-tab="calculator"
               >Calculator</a
             >
+            <a href="#countdown" class="tab" data-tab="countdown">Countdown</a>
           </div>
 
           <!-- Tab Content Panels -->
@@ -507,7 +509,9 @@
                       🔊
                     </button>
                   </div>
-                  <div class="award-meta-inline">United States of America, May 2023</div>
+                  <div class="award-meta-inline">
+                    United States of America, May 2023
+                  </div>
                 </div>
                 <div class="award-role">Selected Participant</div>
                 <ul class="award-details">
@@ -987,6 +991,47 @@
                   </div>
                   <div class="calc-btn" data-val=".">.</div>
                   <div class="calc-btn eq" data-val="=">=</div>
+                </div>
+              </div>
+            </section>
+
+            <!-- Countdown Tab -->
+            <!-- Countdown Tab -->
+            <!-- Countdown Tab -->
+            <section id="countdown" class="panel">
+              <h2 style="text-align: center; margin-bottom: 30px; color: navy">
+                Countdown
+                <button
+                  class="speak-btn"
+                  data-speak="Countdown"
+                >
+                  🔊
+                </button>
+              </h2>
+
+              <div class="led-countdown-container">
+                <!-- First Line: Years, Months, Days -->
+                <div class="led-line">
+                  <div class="led-display rainbow-led" id="led-upper">
+                    03:05:15
+                  </div>
+                  <div class="led-labels">
+                    <span>YEAR</span>
+                    <span>MONTH</span>
+                    <span>DAYS</span>
+                  </div>
+                </div>
+
+                <!-- Second Line: Hours, Minutes, Seconds -->
+                <div class="led-line">
+                  <div class="led-display rainbow-led" id="led-lower">
+                    00:00:00
+                  </div>
+                  <div class="led-labels">
+                    <span>HOUR</span>
+                    <span>MINUTE</span>
+                    <span>SECOND</span>
+                  </div>
                 </div>
               </div>
             </section>
@@ -1566,6 +1611,58 @@
         requestAnimationFrame(animate);
       }
       setTimeout(animate, 1000);
+
+      // === Simple LED Countdown ===
+      // === Rainbow LED Countdown - Two Lines ===
+      const targetDate = new Date("2029-06-14T00:00:00").getTime();
+      const upperDisplay = document.getElementById("led-upper");
+      const lowerDisplay = document.getElementById("led-lower");
+
+      function updateLEDCountdown() {
+        const now = new Date().getTime();
+        let diff = targetDate - now;
+
+        if (diff <= 0) {
+          upperDisplay.textContent = "00:00:00";
+          lowerDisplay.textContent = "00:00:00";
+          return;
+        }
+
+        const totalSeconds = Math.floor(diff / 1000);
+
+        // Years (using 365 days)
+        let years = Math.floor(totalSeconds / (365 * 24 * 3600));
+        let remaining = totalSeconds % (365 * 24 * 3600);
+
+        // Months (approx 30 days)
+        let months = Math.floor(remaining / (30 * 24 * 3600));
+        remaining %= 30 * 24 * 3600;
+
+        // Days
+        let days = Math.floor(remaining / (24 * 3600));
+        remaining %= 24 * 3600;
+
+        // Hours, Minutes, Seconds
+        let hours = Math.floor(remaining / 3600);
+        remaining %= 3600;
+        let minutes = Math.floor(remaining / 60);
+        let seconds = remaining % 60;
+
+        upperDisplay.textContent = `${years
+          .toString()
+          .padStart(2, "0")}:${months.toString().padStart(2, "0")}:${days
+          .toString()
+          .padStart(2, "0")}`;
+
+        lowerDisplay.textContent = `${hours
+          .toString()
+          .padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds
+          .toString()
+          .padStart(2, "0")}`;
+      }
+
+      updateLEDCountdown();
+      setInterval(updateLEDCountdown, 1000);
 
       // === Clock ===
       const realClock = document.getElementById("real-clock");
